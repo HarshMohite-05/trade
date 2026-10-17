@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { createChart, CandlestickSeries, HistogramSeries, LineStyle } from "lightweight-charts";
 import { X, TrendingUp, TrendingDown, Target, ShieldAlert, Crosshair, BarChart3, Clock } from "lucide-react";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
 export default function StockChartModal({ stock, isOpen, onClose }) {
   const chartContainerRef = useRef(null);
   const chartInstanceRef = useRef(null);
@@ -29,7 +31,7 @@ export default function StockChartModal({ stock, isOpen, onClose }) {
 
     const fetchCandles = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/market/candles?symbol=${stock.symbol}&timeframe=${timeframe}`);
+        const res = await fetch(`${API_BASE}/api/market/candles?symbol=${stock.symbol}&timeframe=${timeframe}`);
         const data = await res.json();
         if (isMounted) {
           setChartData(data);

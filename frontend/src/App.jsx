@@ -9,8 +9,8 @@ import {
 import StockChartModal from './components/StockChartModal';
 import BacktestTradeChartModal from './components/BacktestTradeChartModal';
 
-const API_BASE = 'http://localhost:8000';
-const WS_BASE = 'ws://localhost:8000/api/scanner/ws';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const WS_BASE = import.meta.env.VITE_WS_BASE_URL || (API_BASE.replace(/^http/, 'ws') + '/api/scanner/ws');
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('scanner');
@@ -22,14 +22,14 @@ export default function App() {
   const [authStatus, setAuthStatus] = useState({
     authenticated: false,
     api_key: '',
-    redirect_uri: 'http://localhost:8000/api/auth/callback',
+    redirect_uri: `${API_BASE}/api/auth/callback`,
     token_preview: null,
     user_name: null,
     user_id: null,
   });
   const [apiKey, setApiKey] = useState('');
   const [apiSecret, setApiSecret] = useState('');
-  const [redirectUri, setRedirectUri] = useState('http://localhost:8000/api/auth/callback');
+  const [redirectUri, setRedirectUri] = useState(`${API_BASE}/api/auth/callback`);
   const [manualToken, setManualToken] = useState('');
   const [authLoading, setAuthLoading] = useState(false);
   const [authMessage, setAuthMessage] = useState(null);

@@ -9,7 +9,7 @@ import {
 } from "lightweight-charts";
 import { X, ChevronLeft, ChevronRight, TrendingUp, TrendingDown } from "lucide-react";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 // "2026-09-22 12:51:00" (IST wall clock) -> epoch seconds on the same "IST as UTC" axis the API uses
 const toEpoch = (s) => (s ? Math.floor(Date.parse(s.replace(" ", "T").slice(0, 19) + "Z") / 1000) : null);
